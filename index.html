@@ -91,13 +91,38 @@ tr:hover .remove {
             </tr>
           </thead>
           <tbody id="records-panel">
-            <!-- <tr class="item"> -->
-            <!--   <th scope="row">2020&#45;08&#45;09</th> -->
-            <!--   <td>食</td> -->
-            <!--   <td>漢堡王</td> -->
-            <!--   <td>150</td> -->
-            <!--   <td><span class="remove">x</span></td> -->
-            <!-- </tr> -->
+            <!-- <tr class="item">
+              <th scope="row">2020&#45;08&#45;09</th>
+              <td>食</td>
+              <td>漢堡王</td>
+              <td>150</td>
+              <td><span class="remove">x</span></td>
+            </tr> -->
+            <!-- <template id="item-template">
+              <tr class="item">
+                <th scope="row">2020&#45;08&#45;09</th>
+                <td>食</td>
+                <td>漢堡王</td>
+                <td>150</td>
+                <td><span class="remove">x</span></td>
+              </tr>
+            </template> -->
+            <!-- <div id="item-template">
+              <tr class="item" id="item-template">
+                <th class="date" scope="row">1</th>
+                <td class="category"></td>
+                <td class="description"></td>
+                <td class="amount"></td>
+                <td><span class="remove">x</span></td>
+              </tr>
+            </div> -->
+            <tr class="item" id="item-template">
+              <th class="date" scope="row"></th>
+              <td class="category"></td>
+              <td class="description"></td>
+              <td class="amount"></td>
+              <td><span class="remove">x</span></td>
+            </tr>
             <!-- <tr> -->
             <!--   <th scope="row">2020&#45;08&#45;09</th> -->
             <!--   <td>衣</td> -->
@@ -132,6 +157,7 @@ tr:hover .remove {
   <script>
     document.addEventListener("DOMContentLoaded", function(){
       let note = document.forms[1]
+      var result = []
       note.addEventListener("submit", function(e){
 
       let note = document.forms[1]
@@ -141,21 +167,58 @@ tr:hover .remove {
       let amount = document.forms[1].elements.amount.value
       let description = document.forms[1].elements.description.value
 
-      // console.log("h1")
-      // console.log(formName)
-      let result = {
+      let record = {
         category,
         date,
         amount,
         description
       }
-      console.log(result)
-      e.preventDefault()
       // console.log(JSON.stringify(result))
+      result.push(record)
+      // console.log(result)
       localStorage.setItem('records',JSON.stringify(result) )
+      // console.log(JSON.parse(localStorage.getItem('records')))
+      generateItem(JSON.parse(localStorage.getItem('records')))
+      // 把提出的JSON格式印出來
+      
+
+      e.preventDefault()
       })
       
     })
+
+    // let textWrap = document.querySelector("#item-template")
+
+    function generateItem(e){
+      const template = document.querySelector("#item-template")
+      const date = template.querySelector(".date")
+      const category = template.querySelector(".category")
+      const description = template.querySelector(".description")
+      const amount = template.querySelector(".amount")
+      // err.textContent = `Errr * ${counter++}`
+      // // amount = e.amount;
+      let len = e.length
+      
+      date.textContent = e[len - 1].date
+      category.textContent = e[len - 1].category
+      description.textContent = e[len - 1].description
+      amount.textContent = e[len - 1].amount
+
+      // date.textContent = e.date
+      // category.textContent = e.category
+      // description.textContent = e.description
+      // amount.textContent = e.amount
+      // console.log(e.category)
+      // console.log(template)
+      const clone = document.importNode(template, true)
+      console.log(clone)
+      // const append = document.appendChild(template)
+      document.querySelector('#records-panel').appendChild(clone)
+      // textWrap.appendChild(clone) 
+
+      // textWrap.appendChild(append)
+      // console.log("done")
+    }
   </script>
 </body>
 
