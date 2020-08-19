@@ -125,9 +125,38 @@ tr:hover .remove {
     </div>
 
   </div>
-  <script src="index.js"></script>
+  <!-- <script src="index.js"></script>
   <script src="search.js"></script>
   <script src="init.js"></script>
+  <script src="my.js"></script> -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      let note = document.forms[1]
+      note.addEventListener("submit", function(e){
+
+      let note = document.forms[1]
+
+      let category = document.forms[1].elements.category.value
+      let date = document.forms[1].elements.date.value
+      let amount = document.forms[1].elements.amount.value
+      let description = document.forms[1].elements.description.value
+
+      // console.log("h1")
+      // console.log(formName)
+      let result = {
+        category,
+        date,
+        amount,
+        description
+      }
+      console.log(result)
+      e.preventDefault()
+      // console.log(JSON.stringify(result))
+      localStorage.setItem('records',JSON.stringify(result) )
+      })
+      
+    })
+  </script>
 </body>
 
 </html>
