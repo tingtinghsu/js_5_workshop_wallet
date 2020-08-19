@@ -116,13 +116,15 @@ tr:hover .remove {
                 <td><span class="remove">x</span></td>
               </tr>
             </div> -->
-            <tr class="item" id="item-template">
-              <th class="date" scope="row"></th>
-              <td class="category"></td>
-              <td class="description"></td>
-              <td class="amount"></td>
-              <td><span class="remove">x</span></td>
-            </tr>
+            <template id="item-template">
+              <tr class="item">
+                <th class="date" scope="row"></th>
+                <td class="category"></td>
+                <td class="description"></td>
+                <td class="amount"></td>
+                <td><span class="remove">x</span></td>
+              </tr>
+            </template>
             <!-- <tr> -->
             <!--   <th scope="row">2020&#45;08&#45;09</th> -->
             <!--   <td>衣</td> -->
@@ -187,18 +189,20 @@ tr:hover .remove {
       
     })
 
-    // let textWrap = document.querySelector("#item-template")
+    let textWrap = document.querySelector("#records-panel")
 
     function generateItem(e){
       const template = document.querySelector("#item-template")
-      const date = template.querySelector(".date")
-      const category = template.querySelector(".category")
-      const description = template.querySelector(".description")
-      const amount = template.querySelector(".amount")
+      // console.log(template)
+      const date = template.content.querySelector(".date")
+
+      const category = template.content.querySelector(".category")
+      const description = template.content.querySelector(".description")
+      const amount = template.content.querySelector(".amount")
       // err.textContent = `Errr * ${counter++}`
       // // amount = e.amount;
       let len = e.length
-      
+  
       date.textContent = e[len - 1].date
       category.textContent = e[len - 1].category
       description.textContent = e[len - 1].description
@@ -209,12 +213,13 @@ tr:hover .remove {
       // description.textContent = e.description
       // amount.textContent = e.amount
       // console.log(e.category)
-      // console.log(template)
-      const clone = document.importNode(template, true)
-      console.log(clone)
+      console.log(template)
+
+      const clone = document.importNode(template.content, true)
+      // console.log(clone)
       // const append = document.appendChild(template)
       document.querySelector('#records-panel').appendChild(clone)
-      // textWrap.appendChild(clone) 
+      textWrap.appendChild(clone) 
 
       // textWrap.appendChild(append)
       // console.log("done")
